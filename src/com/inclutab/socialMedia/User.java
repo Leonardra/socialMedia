@@ -1,22 +1,23 @@
 package com.inclutab.socialMedia;
 
-import java.util.ArrayList;
-
 public class User {
-    private ArrayList<Message> listOfSentMessages = new ArrayList<>();
-    private ArrayList<Message> listOfReceivedMessages = new ArrayList<>();
 
-    public void sendMessage(String message, User receiver) {
-        Message newMessage = new Message(message, receiver);
-        listOfSentMessages.add(newMessage);
-        receiver.receiveMessage(newMessage);
+    private final String firstName;
+    private final String lastname;
+    private final String emailAddress;
+    private Account account;
+
+    public User(String firstName, String lastName, String emailAddress) {
+        this.firstName = firstName;
+        this.lastname = lastName;
+        this.emailAddress = emailAddress;
     }
 
-    private void receiveMessage(Message newMessage) {
-        listOfReceivedMessages.add(newMessage);
+    public void setAccount(Account newAccount) {
+        this.account = newAccount;
     }
 
-    public int getSizeOfSentMessage() {
-        return listOfSentMessages.size();
+    public Account getAccount() {
+        return account;
     }
 }
