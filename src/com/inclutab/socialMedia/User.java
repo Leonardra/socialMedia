@@ -13,6 +13,10 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
+    public String getEmail(){
+        return emailAddress;
+    }
+
     public void setAccount(Account newAccount) {
         this.account = newAccount;
     }

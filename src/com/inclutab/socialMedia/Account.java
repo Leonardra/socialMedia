@@ -7,12 +7,15 @@ public class Account {
 
     private final String passWord;
     private final String userName;
-    private ArrayList<Message> sentMessageList = new ArrayList<>();
-    private ArrayList<Message> receivedMessageList = new ArrayList<>();
+    private ArrayList<Message> sentMessages = new ArrayList<>();
+    private ArrayList<Message> receivedMessages = new ArrayList<>();
+    private ArrayList<Post> posts = new ArrayList<>();
+    private boolean loginStatus;
 
     public Account(String passWord, String userName) {
         this.passWord = passWord;
         this.userName = userName;
+        this.loginStatus = true;
     }
 
     public String getUserName() {
@@ -23,19 +26,52 @@ public class Account {
         return passWord;
     }
 
-    public void addToListOfSentMessage(Message newMessage) {
-        sentMessageList.add(newMessage);
+    public void addToSentMessages(Message newMessage) {
+        sentMessages.add(newMessage);
     }
 
-    public int getSizeOfSentMessages() {
-        return sentMessageList.size();
+    public int getNumberOfSentMessages() {
+        return sentMessages.size();
     }
 
-    public int getSizeOfReceivedMessages() {
-        return receivedMessageList.size();
+    public int getNumberOfReceivedMessages() {
+        return receivedMessages.size();
     }
 
-    public void addToListOfReceivedMessage(Message message) {
-        receivedMessageList.add(message);
+    public void addToReceivedMessages(Message message) {
+        receivedMessages.add(message);
+    }
+
+    public void addToPostList(Post post) {
+        posts.add(post);
+    }
+
+    public int getSizeOfPost() {
+        return posts.size();
+    }
+
+    public boolean getLoginStatus() {
+        return loginStatus;
+    }
+
+    public void setLoginStatus() {
+        loginStatus = !loginStatus;
+    }
+
+    public void sendMessage(String message,Platform platform, String userName) {
+        User recipient = platform.findUserByUsername(userName);
+        Message newMessage = new Message(message,recipient);
+        this.addToSentMessages(newMessage);
+        receiveMessage(recipient, newMessage);
+    }
+
+    private void receiveMessage(User user, Message message){
+        user.getAccount().addToReceivedMessages(message);
+    }
+
+    public void displaySentMessage(){
+        for (Message message: sentMessages) {
+            System.out.println(message);
+        }
     }
 }

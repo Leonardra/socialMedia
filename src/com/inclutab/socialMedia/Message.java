@@ -4,14 +4,21 @@ import java.time.LocalDateTime;
 
 public class Message {
     private final String messageBody;
-    private final String receiver;
-    private final String sender;
+    private final User receiver;
     private final LocalDateTime timeStamp;
 
-    public Message(String message, String receiverUserName, String senderUserName) {
+    public Message(String message, User recipient) {
         this.messageBody = message;
-        this.receiver = receiverUserName;
-        this.sender = senderUserName;
+        this.receiver = recipient;
         this.timeStamp = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "To =" + receiver +
+                "messageBody='" + messageBody + '\'' +
+                ", timeStamp=" + timeStamp +
+                '}';
     }
 }
